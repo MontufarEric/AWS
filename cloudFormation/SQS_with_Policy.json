@@ -1,0 +1,41 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"MyQueue": {
+			"Properties": {
+				"QueueName": "MyQueue"
+
+			},
+			"Type": "AWS::SQS::Queue"
+		},
+		"QueuePolicy": {
+			"Type": "AWS::SQS::QueuePolicy",
+			"Properties": {
+				"Queues": [
+					"https://sqs.us-west-2.amazonaws.com/MyAccount/MyQueue"
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Id": "Queue1_Policy_UUID",
+					"Statement": [
+						{
+							"Sid": "Queue1_AnonymousAccess_ReceiveMessage",
+							"Effect": "Allow",
+							"Principal": "*",
+							"Action": [
+								"sqs:SendMessage",
+								"sqs:ReceiveMessage"
+							],
+							"Resource": {
+								"Fn::GetAtt": [
+									"MyQueue",
+									"Arn"
+								]
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}
