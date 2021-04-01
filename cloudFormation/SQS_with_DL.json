@@ -1,0 +1,49 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Resources" : {
+  
+    "MyQueue1" : {
+      "Type" : "AWS::SQS::Queue",
+      "Properties" : {
+		"QueueName": "MytestQueue1",
+		"FifoQueue": true,
+		"ContentBasedDeduplication": true,
+        "RedrivePolicy": {
+          "deadLetterTargetArn" : {"Fn::GetAtt" : [ "MyDeadLetterQueue1" , "Arn" ]},
+          "maxReceiveCount" : 5
+        }
+      }
+    },    
+	
+	"MyQueue2" : {
+      "Type" : "AWS::SQS::Queue",
+      "Properties" : {
+		"QueueName": "MytestQueue2",
+		"FifoQueue": true,
+		"ContentBasedDeduplication": true,
+        "RedrivePolicy": {
+          "deadLetterTargetArn" : {"Fn::GetAtt" : [ "MyDeadLetterQueue2" , "Arn" ]},
+          "maxReceiveCount" : 5
+        }
+      }
+    }, 
+	
+    "MyDeadLetterQueue1" : {
+      "Type" : "AWS::SQS::Queue",
+	    "Properties" : {
+		"QueueName": "MytestDLQueue1",
+		"FifoQueue": true,
+		"ContentBasedDeduplication": true
+			}
+		},
+		
+	"MyDeadLetterQueue2" : {
+      "Type" : "AWS::SQS::Queue",
+	    "Properties" : {
+		"QueueName": "MytestDLQueue2",
+		"FifoQueue": true,
+		"ContentBasedDeduplication": true
+		}
+    }
+  }
+}
