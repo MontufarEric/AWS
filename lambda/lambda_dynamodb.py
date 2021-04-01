@@ -20,3 +20,5 @@ def lambda_handler(event, context):
 
     print('Returning state: ', state)
     return {'state': state}
+
+    #https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html
