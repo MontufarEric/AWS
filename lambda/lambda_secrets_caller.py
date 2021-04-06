@@ -49,7 +49,7 @@ def lambda_handler(event, context):
             secret = get_secret_value_response['SecretString']
         else:
             decoded_binary_secret = base64.b64decode(get_secret_value_response['SecretBinary'])
-            
+            secret = base64.b64decode(get_secret_value_response['SecretBinary'])
 
              
     return json.loads(secret)
