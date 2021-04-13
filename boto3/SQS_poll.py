@@ -13,3 +13,8 @@ for message in messages:
 #     message.delete()
 
 message_content = json.loads((json.loads(message.body)['Message']))
+
+print(json.dumps(message_content, indent=4))
+
+
+# https://perandrestromhaug.com/posts/writing-an-sqs-consumer-in-python/
